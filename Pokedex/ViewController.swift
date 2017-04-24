@@ -56,7 +56,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 let poke = Pokemon(name: name, pokedexId: pokeId)
                 pokemon.append(poke)
             }
-            print(rows)
+           // print(rows)
         } catch let err as Error {
             print(err.localizedDescription)
         }
@@ -138,6 +138,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             if let detailVC = segue.destination as? PokemonDetailVC {
                 if let poke = sender as? Pokemon {
                     detailVC.pokemon = poke
+                    
+                    //implict closure syntax new in swift 3
+                    detailVC.pokemon.downloadPokemonDetails {
+                        // this will be called after downlaod is done
+                        
+                        detailVC.updateUI()
+                        print("DID WE GET HERE")
+                    }
+
                 }
             }
         }
